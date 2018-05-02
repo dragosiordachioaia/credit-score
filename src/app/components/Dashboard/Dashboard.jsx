@@ -44,7 +44,7 @@ export default class Dashboard extends Component {
 
     return (
       <div className={cn(null, 'main')}>
-        <Slide score={500} maxScore={700} radius={150}/>
+        <Slide score={400} maxScore={700} radius={150}/>
       </div>
     )
   }
