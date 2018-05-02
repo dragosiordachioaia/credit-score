@@ -1,0 +1,35 @@
+$border-width: 2px;
+$slide-radius: 150px;
+
+.slide {
+  &--main {
+    position: absolute;
+    top: calc(50vh - #{$slide-radius});
+    left: calc(50vw - #{$slide-radius});
+    width: $slide-radius * 2;
+    height: $slide-radius * 2;
+    border-radius: 50%;
+    clip-path: circle($slide-radius at center);
+  }
+  &__bg {
+    width: 100vw;
+    height: 100vh;
+    top: 0px;
+    left: 0px;
+    position: fixed;
+    background-color: lightblue;
+    background: no-repeat top;
+    background-size: 100vw 100vh;
+    background-image: url('/_background--dashboard.png');
+    filter: blur(12px) brightness(1.1);
+  }
+  &__border {
+    width: calc(100% - #{$border-width*2});
+    height: calc(100% - #{$border-width * 2});
+    border-radius: 50%;
+    border: $border-width solid rgba(255, 255, 255, 0.4);
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+}

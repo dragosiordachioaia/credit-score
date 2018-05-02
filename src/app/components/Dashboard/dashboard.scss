@@ -1,5 +1,9 @@
 body {
   background: no-repeat top;
   background-size: cover;
-  background-image: url('/background--dashboard.png');
+  background-image: url('/_background--dashboard.png');
+  // background-image: url('/background--dashboard.jpg');
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
 }

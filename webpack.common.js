@@ -16,7 +16,7 @@ module.exports = {
   },
   output: {
     path: DIST,
-    filename: '[name]-[chunkhash].js',
+    filename: '[name]-[hash].js',
     publicPath: '/',
   },
   plugins: [
@@ -25,7 +25,7 @@ module.exports = {
     new Visualizer({
       filename: '../webpack-stats.html',
     }),
-    new ExtractTextPlugin('[name]-[contenthash].css'),
+    new ExtractTextPlugin('[name]-[hash].css'),
     new webpack.NoEmitOnErrorsPlugin(),
     new webpack.DefinePlugin({
       'process.env.PORT': JSON.stringify(process.env.PORT),
