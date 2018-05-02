@@ -20,8 +20,8 @@
     "nuke": "rm -rf node_modules && yarn && yarn test"
   },
   "engines": {
-    "node": "^9.3.0",
-    "npm": "^5.5.1",
+    "node": "^10.0.0",
+    "npm": "^5.6.0",
     "yarn": "^1.0.0"
   },
   "author": "Peter Mouland",
@@ -37,6 +37,7 @@
     "fs-extra": "^5.0.0",
     "glob": "^7.1.2",
     "graphql": "^0.12.3",
+    "gsap": "^1.20.4",
     "http-server": "^0.11.1",
     "koa": "^2.5.0",
     "koa-bodyparser": "^4.2.0",
@@ -67,14 +68,14 @@
   "devDependencies": {
     "@babel/cli": "^7.0.0-beta.41",
     "@babel/core": "^7.0.0-beta.41",
-    "@babel/plugin-transform-runtime": "^7.0.0-beta.41",
-    "@babel/preset-react": "^7.0.0-beta.41",
-    "@babel/runtime": "^7.0.0-beta.41",
     "@babel/node": "^7.0.0-beta.41",
     "@babel/plugin-proposal-class-properties": "^7.0.0-beta.41",
     "@babel/plugin-proposal-object-rest-spread": "^7.0.0-beta.41",
+    "@babel/plugin-transform-runtime": "^7.0.0-beta.41",
     "@babel/preset-env": "^7.0.0-beta.41",
+    "@babel/preset-react": "^7.0.0-beta.41",
     "@babel/register": "^7.0.0-beta.41",
+    "@babel/runtime": "^7.0.0-beta.41",
     "babel-jest": "^22.4.1",
     "babel-plugin-add-module-exports": "^0.2.1",
     "chance": "^1.0.13",

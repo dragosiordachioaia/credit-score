@@ -2,9 +2,10 @@ import React from 'react';
 import { drawArc } from './SVGArcHelpers';
 
 /**
-  radius
-  color
-  angle
+  props:
+    radius
+    color
+    angle
 **/
 
 const SVGArc = props => {
