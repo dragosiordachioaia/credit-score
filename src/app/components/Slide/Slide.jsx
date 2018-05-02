@@ -12,7 +12,6 @@ const cn = bemHelper({ block: 'slide' });
 
 import SVGArc from '../SVGArc/SVGArc';
 
-
 export default class Slide extends Component {
   constructor(props) {
     super(props);
@@ -32,7 +31,9 @@ export default class Slide extends Component {
   }
 
   componentWillUnmount() {
-
+    if(this.tween) {
+      this.tween.kill();
+    }
   }
 
   componentDidUpdate() {
@@ -70,13 +71,17 @@ export default class Slide extends Component {
       return null;
     }
     const stroke = '#80cddc';
-    const radius = 130;
     const angle = (this.state.currentScore / this.state.maxScore) * 360;
+    const strokeWidth = this.props.strokeWidth || 3;
+    const spaceToEdge = 4;
 
     return (
       <div className={cn(null, 'main')}>
+        <div className={cn('bg')}></div>
+        <div className={cn('border')}></div>
         <SVGArc
-          radius={radius}
+          strokeWidth={strokeWidth}
+          radius={this.props.radius - strokeWidth - spaceToEdge}
           angle={angle}
           color={"#80cddc"}
         />

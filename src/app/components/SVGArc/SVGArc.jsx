@@ -9,17 +9,12 @@ import { drawArc } from './SVGArcHelpers';
 **/
 
 const SVGArc = props => {
-  const strokeWidth = props.strokeWidth || 3;
-  const viewBox = [
-    0,
-    0,
-    (parseFloat(props.radius * 2) + parseFloat(strokeWidth * 2)),
-    (parseFloat(props.radius * 2) + parseFloat(strokeWidth * 2)),
-  ].join(' ');
+  const boxSize = props.radius * 2 + props.strokeWidth * 2;
+  const viewBox = [0, 0, boxSize, boxSize].join(' ');
 
   const d = drawArc({
-    x: strokeWidth,
-    y: strokeWidth,
+    x: props.strokeWidth,
+    y: props.strokeWidth,
     radius: props.radius,
     startAngle: 0,
     endAngle: props.angle
@@ -27,8 +22,17 @@ const SVGArc = props => {
 
   const transform = `translate(${props.radius} ${props.radius})`;
 
+  const style = {
+    position: 'absolute',
+    width: `${boxSize}px`,
+    height: `${boxSize}px`,
+    top: `calc(50% - ${boxSize/2}px)`,
+    left: `calc(50% - ${boxSize/2}px)`,
+  }
+
   return (
     <svg
+      style={style}
       viewBox={viewBox}>
         <g transform={transform}>
             <path
