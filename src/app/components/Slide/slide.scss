@@ -12,6 +12,7 @@ $slide-radius: 150px;
     clip-path: circle($slide-radius at center);
   }
   &__bg {
+    z-index: -1;
     width: 100vw;
     height: 100vh;
     top: 0px;
