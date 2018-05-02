@@ -19,11 +19,19 @@ export default class Slide extends Component {
       targetScore: 0,
       maxScore: 0,
       currentScore: 0,
+      currentScoreToDisplay: 0,
+      currentSlide: 0,
+      slides: null,
     };
     this.animationDuration = 2;
-    this.tweenCurrentScore = 0;
-    this.tween = null;
+    this.valueTweenScore = 0;
+    this.valueTweenStroke = 0;
+    this.tweenStroke = null;
+    this.tweenScore = null;
     this.startAnimation = this.startAnimation.bind(this);
+    this.displayContentReel = this.displayContentReel.bind(this);
+    this.getScoreSlide = this.getScoreSlide.bind(this);
+    this.killTweens = this.killTweens.bind(this);
   }
 
   componentDidMount() {
@@ -31,9 +39,7 @@ export default class Slide extends Component {
   }
 
   componentWillUnmount() {
-    if(this.tween) {
-      this.tween.kill();
-    }
+    this.killTweens();
   }
 
   componentDidUpdate() {
@@ -49,28 +55,88 @@ export default class Slide extends Component {
   }
 
   startAnimation() {
-    if(this.tween) {
-      this.tween.kill();
-    }
-    this.tweenCurrentScore = this.state.currentScore;
-    this.tween = TweenMax.to(
+    this.killTweens();
+
+    this.valueTweenScore = this.state.currentScore;
+    this.tweenScore = TweenMax.to(
       this,
       this.animationDuration,
       {
-        tweenCurrentScore: this.state.targetScore,
-        ease: EaseTypes.Bounce.easeOut,
+        valueTweenScore: this.state.targetScore,
+        ease: EaseTypes.Strong.easeOut,
         onUpdate: () => {
-          this.setState({currentScore: this.tweenCurrentScore});
+          this.setState({
+            currentScoreToDisplay: Math.round(this.valueTweenScore),
+            currentScore: Math.round(this.valueTweenStroke)
+          });
         }
+      }
+    );
+    this.tweenStroke = TweenMax.to(
+      this,
+      this.animationDuration,
+      {
+        valueTweenStroke: this.state.targetScore,
+        ease: EaseTypes.Bounce.easeOut,
       }
     );
   }
 
+  killTweens() {
+    if(this.tweenStroke) {
+      this.tweenStroke.kill();
+    }
+    if(this.tweenScore) {
+      this.tweenScore.kill();
+    }
+  }
+
+  getScoreSlide() {
+    return (
+      <div
+        key='slide-score'
+        className={cn('individual-slide')}
+        style={{width: `${this.props.radius * 2}px`}}
+      >
+        <p className={cn('small-text')}>
+          Your credit score is
+        </p>
+        <h2 className={cn('score-text')} style={{color: this.props.color}}>
+          {this.state.currentScoreToDisplay}
+        </h2>
+        <p className={cn('small-text')}>
+          out of
+          <b className={cn('max-score')}>{this.state.maxScore}</b>
+        </p>
+        <p
+          className={cn('description-text')}
+          style={{color: this.props.color}}
+        >
+          Soaring high
+        </p>
+      </div>
+    )
+  }
+
+  displayContentReel() {
+    return this.props.slides.map(slideName => {
+      switch(slideName) {
+        case 'score':
+          return this.getScoreSlide();
+        default:
+          return null;
+      }
+    });
+  }
+
   render() {
-    if(!this.state.currentScore || !this.state.maxScore) {
+    if(
+      !this.state.currentScore ||
+      !this.state.currentScoreToDisplay ||
+      !this.state.maxScore
+    ) {
       return null;
     }
-    const stroke = '#80cddc';
     const angle = (this.state.currentScore / this.state.maxScore) * 360;
     const strokeWidth = this.props.strokeWidth || 3;
     const spaceToEdge = 4;
@@ -83,8 +149,16 @@ export default class Slide extends Component {
           strokeWidth={strokeWidth}
           radius={this.props.radius - strokeWidth - spaceToEdge}
           angle={angle}
-          color={"#80cddc"}
+          color={this.props.color}
         />
+        <div className={cn('content')}>
+          <div
+            className={cn('reel')}
+            style={{left: `${this.state.currentSlide * this.props.radius}px`}}
+          >
+            {this.displayContentReel()}
+          </div>
+        </div>
       </div>
     )
   }

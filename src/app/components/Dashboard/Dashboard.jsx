@@ -19,6 +19,7 @@ export default class Dashboard extends Component {
     };
 
     this.fetchScoreData = this.fetchScoreData.bind(this);
+    this.displayMainSlide = this.displayMainSlide.bind(this);
   }
 
   componentDidMount() {
@@ -39,12 +40,29 @@ export default class Dashboard extends Component {
     )
   }
 
+  displayMainSlide() {
+    const color = '#80cddc';
+    return (
+      <Slide
+        score={this.state.score.creditReportInfo.score}
+        maxScore={this.state.score.creditReportInfo.maxScoreValue}
+        radius={150}
+        color={color}
+        slides={['score']}
+      />
+    );
+  }
+
   render() {
-    // return null;
+    if(this.state.error) {
+      return 'Error';
+    } else if(!this.state.score) {
+      return null;
+    }
 
     return (
       <div className={cn(null, 'main')}>
-        <Slide score={400} maxScore={700} radius={150}/>
+        {this.displayMainSlide()}
       </div>
     )
   }

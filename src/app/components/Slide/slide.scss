@@ -33,4 +33,31 @@ $slide-radius: 150px;
     top: 0;
     left: 0;
   }
+  &__content {
+    width: calc(100% - #{$border-width*2});
+    height: calc(100% - #{$border-width * 2});
+    position: absolute;
+    top: 20%;
+    left: 0;
+    text-align: center;
+    color: #fff;
+  }
+  &__reel {
+    transition: all 400ms;
+    position: absolute;
+    top: 0;
+  }
+  &__score-text {
+    font-size: 4em;
+    margin-top: 0.2em;
+  }
+  &__max-score {
+    margin-left: 5px;
+  }
+  &__individual-slide {
+
+  }
+  &__description-text {
+    margin-top: 1.5em;
+  }
 }
