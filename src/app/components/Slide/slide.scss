@@ -1,4 +1,4 @@
-$border-width: 2px;
+$border-width: 1px;
 $slide-radius: 150px;
 
 .slide {
@@ -9,7 +9,7 @@ $slide-radius: 150px;
     width: $slide-radius * 2;
     height: $slide-radius * 2;
     border-radius: 50%;
-    clip-path: circle($slide-radius at center);
+    // clip-path: circle($slide-radius at center);
   }
   &__bg {
     z-index: -1;
@@ -28,7 +28,7 @@ $slide-radius: 150px;
     width: calc(100% - #{$border-width*2});
     height: calc(100% - #{$border-width * 2});
     border-radius: 50%;
-    border: $border-width solid rgba(255, 255, 255, 0.4);
+    border: $border-width solid rgba(255, 255, 255, 0.25);
     position: absolute;
     top: 0;
     left: 0;
