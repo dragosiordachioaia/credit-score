@@ -70,6 +70,7 @@ export default class Dashboard extends Component {
     ];
 
     let top;
+    // we want the score slider to be positioned different, depending on screen size
     if(mobile) {
       top = 'calc(4vh)';
     } else {

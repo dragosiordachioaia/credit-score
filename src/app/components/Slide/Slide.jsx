@@ -191,14 +191,16 @@ export default class Slide extends Component {
     ) {
       return null;
     }
-    let radius = this.getRadius(this.props.size);
+
+    const radius = this.getRadius(this.props.size);
+    const strokeWidth = this.props.strokeWidth || 3;
+    const spaceToEdge = 4;
 
     let angle = this.state.currentCoefficientStroke * 360;
     if(angle % 360 === 0) {
       angle = 359.9;
     }
-    const strokeWidth = this.props.strokeWidth || 3;
-    const spaceToEdge = 4;
+
     return (
       <div
         className={cn(null, `main-${this.props.size}`)}
