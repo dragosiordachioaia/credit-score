@@ -3,15 +3,14 @@ $slide-radius: 150px;
 
 @keyframes scale-in{
   0% {
-    transform: scale(0, 0);
+    clip-path: circle(0px at center);
   }
   100% {
-    transform: scale(1, 1);
+    clip-path: circle($slide-radius at center);
   }
 }
 
 .slide {
-
   &--main {
     position: absolute;
     top: calc(50vh - #{$slide-radius});
@@ -19,16 +18,13 @@ $slide-radius: 150px;
     width: $slide-radius * 2;
     height: $slide-radius * 2;
     border-radius: 50%;
-    clip-path: circle($slide-radius at center);
+    clip-path: circle(0px at center);
 
     animation-name: scale-in;
     animation-duration: 0.7s;
     animation-iteration-count: 1;
     animation-delay: 0s;
     animation-fill-mode: forwards;
-    transform: scale(0, 0);
-
-
   }
   &__bg {
     z-index: -1;

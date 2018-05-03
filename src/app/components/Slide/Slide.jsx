@@ -142,7 +142,7 @@ export default class Slide extends Component {
     const spaceToEdge = 4;
 
     return (
-      <div className={cn(null, 'main')}>
+      <div className={cn(null, 'main', 'big')}>
         <div className={cn('bg')}></div>
         <div className={cn('border')}></div>
         <SVGArc
