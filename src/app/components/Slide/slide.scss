@@ -128,4 +128,22 @@ $radius-small: 85px;
     width: 100px;
     margin-top: -29px;
   }
+  &__marker-container {
+    position: absolute;
+    bottom: 20px;
+    text-align: center;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  &__marker {
+    width: 4px;
+    height: 4px;
+    border: 2px solid rgba(255, 255, 255, 0.7);
+    border-radius: 50%;
+    display: inline-block;
+    margin-left: 3px;
+  }
+  &__marker-selected {
+    background-color: white;
+  }
 }

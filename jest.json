@@ -1,6 +1,6 @@
 {
   "rootDir": ".",
-  "collectCoverage": true,
+  "collectCoverage": false,
   "coverageDirectory": "<rootDir>/tests/coverage",
   "coveragePathIgnorePatterns": ["<rootDir>/node_modules", "<rootDir>/tests"],
   "transform": {

@@ -50,7 +50,7 @@ export default class Slide extends Component {
 
     this.startAnimation = this.startAnimation.bind(this);
     this.displayContentReel = this.displayContentReel.bind(this);
-    // this.getScoreSlide = this.getScoreSlide.bind(this);
+    this.displayMarkers = this.displayMarkers.bind(this);
     this.killTweens = this.killTweens.bind(this);
     this.onSlideClick = this.onSlideClick.bind(this);
     this.onNewProps = this.onNewProps.bind(this);
@@ -152,11 +152,9 @@ export default class Slide extends Component {
       case 'medium':
         radius = 120;
         break;
-
       case 'small':
         radius = 85;
         break;
-
       default:
         radius = 150;
     }
@@ -177,6 +175,18 @@ export default class Slide extends Component {
       maxScore: this.props.slides[nextSlide].maxScore,
       targetScore: this.props.slides[nextSlide].score,
     }, stateChangeCallback);
+  }
+
+  displayMarkers() {
+    return this.props.slides.map((slideData, index) => {
+      let className = cn('marker');
+      if(index === this.state.currentSlideIndex) {
+        className += " " + cn('marker-selected');
+      }
+      return (
+        <div key={`slide-${index}`} className={className}></div>
+      )
+    });
   }
 
   render() {
@@ -220,6 +230,9 @@ export default class Slide extends Component {
           >
             {this.displayContentReel()}
           </div>
+        </div>
+        <div className={cn('marker-container')}>
+          {this.displayMarkers()}
         </div>
       </div>
     )

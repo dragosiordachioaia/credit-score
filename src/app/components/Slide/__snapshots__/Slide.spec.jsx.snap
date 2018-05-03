@@ -1,0 +1,46 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Slide component renders correctly when 1 slide 1`] = `
+<div
+  className="slide slide--main-big"
+  onClick={[Function]}
+  style={undefined}
+>
+  <div
+    className="slide__bg"
+  />
+  <div
+    className="slide__border"
+  />
+  <SVGArc
+    angle={359.9}
+    color="#a7ced1"
+    radius={143}
+    strokeWidth={3}
+  />
+  <div
+    className="slide__content"
+  >
+    <div
+      className="slide__reel"
+      style={
+        Object {
+          "left": "-0px",
+          "width": "300px",
+        }
+      }
+    >
+      score-slide
+    </div>
+  </div>
+  <div
+    className="slide__marker-container"
+  >
+    <div
+      className="slide__marker slide__marker-selected"
+    />
+  </div>
+</div>
+`;
+
+exports[`Slide component renders nothing right after being mounted 1`] = `null`;

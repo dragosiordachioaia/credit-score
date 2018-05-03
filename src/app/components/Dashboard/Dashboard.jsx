@@ -93,7 +93,7 @@ export default class Dashboard extends Component {
       score: 5,
       maxScore: 5,
       color: '#fff',
-    }]
+    }];
     return (
       <Slide
         animate={false}
