@@ -2,7 +2,7 @@ export const SCORE_DATA_URL = "https://s3.amazonaws.com/cdn.clearscore.com/nativ
 
 export const breakpoints = {
   DESKTOP: 1040,
-  TABLET: 840,
+  TABLET: 700,
   MOBILE: 540
 };
 
