@@ -16,16 +16,29 @@ export default class Slide extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      // the value that we want to display in the end, after the animation has ended
       targetScore: 0,
+
+      // the maximum value that is possible to display, used to compute the coefficients
       maxScore: 0,
+
+      // float between 0 and 1, to be used for showing the animated circular path
       currentCoefficientStroke: 0,
+
+      // float between 0 and 1, to be used for displaying the big score text
       currentCoefficientNumber: 0,
+
+      // the index of the current slide
       currentSlide: 0,
-      slides: null,
     };
     this.animationDuration = 2;
+
+    // these are the intermediate values for the tweens; we declare them here
+    // just to know about them
     this.valueTweenScore = 0;
     this.valueTweenStroke = 0;
+
+    // 
     this.tweenStroke = null;
     this.tweenScore = null;
     this.startAnimation = this.startAnimation.bind(this);
@@ -62,9 +75,8 @@ export default class Slide extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    if(
-      this.props.slides !== prevProps.slides
-    ) {
+    // this should probable be done in a smarter way
+    if(JSON.stringify(this.props.slides) !== JSON.stringify(prevProps.slides)) {
       this.onNewProps();
     }
   }
@@ -161,6 +173,21 @@ export default class Slide extends Component {
     )
   }
 
+  getBalanceSlide() {
+    return (
+      <div
+        key='slide-offers'
+        className={cn('individual-slide')}
+        style={{width: `${this.props.radius * 2}px`}}
+      >
+        <img src='/cards.png' className={cn('cards')}></img>
+        <p className={cn('small-text')}>
+          Transfer your <br /> balance!
+        </p>
+      </div>
+    )
+  }
+
   getDebtSlide() {
     const crtSlide = this.props.slides[this.state.currentSlide];
     const crtScoreToDisplay = this.state.currentCoefficientNumber *crtSlide.maxScore;
@@ -191,7 +218,7 @@ export default class Slide extends Component {
           className={cn('description-text')}
           style={{color: this.props.slides[this.state.currentSlide].color}}
         >
-          You're doing excellent!
+          You're doing great!
         </p>
       </div>
     )
@@ -206,6 +233,8 @@ export default class Slide extends Component {
           return this.getOffersSlide();
         case 'debt':
           return this.getDebtSlide();
+        case 'balance':
+          return this.getBalanceSlide();
         default:
           return null;
       }

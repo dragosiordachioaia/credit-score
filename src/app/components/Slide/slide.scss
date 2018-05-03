@@ -53,21 +53,21 @@ $radius-small: 85px;
   &--main-big {
     @include slide--main($radius-big);
     animation-name: scale-in-big;
-    .slide__content {
+    .slide__reel {
       top: $radius-big * 0.5;
     }
   }
   &--main-medium {
     @include slide--main($radius-medium);
     animation-name: scale-in-medium;
-    .slide__content {
+    .slide__reel {
       top: $radius-medium * 0.1;
     }
   }
   &--main-small {
     @include slide--main($radius-small);
     animation-name: scale-in-small;
-    .slide__content {
+    .slide__reel {
       top: $radius-small * 0.3;
     }
   }
@@ -106,6 +106,7 @@ $radius-small: 85px;
     left: 0;
     text-align: center;
     color: #fff;
+    overflow: hidden;
   }
   &__reel {
     transition: all 400ms;
@@ -122,5 +123,9 @@ $radius-small: 85px;
 
   &__description-text {
     margin-top: 1.5em;
+  }
+  &__cards {
+    width: 100px;
+    margin-top: -29px;
   }
 }

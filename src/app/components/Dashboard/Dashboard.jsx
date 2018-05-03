@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
-
 import bemHelper from '../../utils/bem';
 
 import { getJSON } from '../../utils/fetch';
 
-import { SCORE_DATA_URL } from '../../constants/Constants';
+import { SCORE_DATA_URL, breakpoints } from '../../constants/Constants';
 import Slide from '../Slide/Slide';
 import './dashboard.scss';
 
@@ -16,16 +15,27 @@ export default class Dashboard extends Component {
     this.state = {
       score: null,
       error: null,
+      windowWidth: 0,
     };
 
     this.fetchScoreData = this.fetchScoreData.bind(this);
     this.displayMainSlide = this.displayMainSlide.bind(this);
+    this.displayMobileView = this.displayMobileView.bind(this);
+    this.displayNonMobileView = this.displayNonMobileView.bind(this);
+    this.onWindowResize = this.onWindowResize.bind(this);
   }
 
   componentDidMount() {
     if(!this.state.score && !this.state.error) {
       this.fetchScoreData();
     }
+    if(window) {
+      window.addEventListener("resize", this.onWindowResize);
+    }
+  }
+
+  onWindowResize() {
+    this.setState({windowWidth: window.innerWidth});
   }
 
   fetchScoreData() {
@@ -34,12 +44,12 @@ export default class Dashboard extends Component {
         this.setState({score: response});
       },
       error => {
-        this.setStatE({error});
+        this.setState({error});
       }
-    )
+    );
   }
 
-  displayMainSlide() {
+  displayMainSlide({mobile}) {
     const scoreData = this.state.score.creditReportInfo;
     const slides = [
       {
@@ -55,14 +65,22 @@ export default class Dashboard extends Component {
         color: '#FCD29F',
         change: scoreData.changeInLongTermDebt
       }
-    ]
+    ];
+
+    let top;
+    if(mobile) {
+      top = 'calc(10vh)';
+    } else {
+      top = 'calc(50vh - 150px)';
+    }
+
     return (
       <Slide
         animate={true}
         size='big'
         slides={slides}
         style={{
-          top: 'calc(50vh - 150px)',
+          top,
           left: 'calc(50vw - 150px)'
         }}
       />
@@ -89,17 +107,66 @@ export default class Dashboard extends Component {
     );
   }
 
+  displayBalanceSlide() {
+    if(window.innerHeight  ) {
+      // content = this.displayMobileView();
+    } else {
+      // content = this.displayNonMobileView();
+    }
+    const slides = [{
+      type: 'balance',
+      score: 1,
+      maxScore: 1,
+      color: '#fff',
+    }]
+    return (
+      <Slide
+        animate={false}
+        size='small'
+        slides={slides}
+        style={{
+          top: 'calc(90vh - 140px)',
+          left: 'calc(50vw - 85px)'
+        }}
+      />
+    );
+  }
+
+  displayMobileView() {
+    return (
+      <div>
+        {this.displayMainSlide({mobile: true})}
+        {this.displayBalanceSlide()}
+      </div>
+    );
+  }
+
+  displayNonMobileView() {
+    return (
+      <div>
+        {this.displayMainSlide({mobile: false})}
+        {this.displayOffersSlide()}
+      </div>
+    );
+  }
+
   render() {
     if(this.state.error) {
-      return 'Error';
+      return 'There has been an error. Please try again later.';
     } else if(!this.state.score) {
       return null;
     }
 
+    let content;
+    if(window.innerWidth <= breakpoints.TABLET) {
+      content = this.displayMobileView();
+    } else {
+      content = this.displayNonMobileView();
+    }
+
     return (
       <div className={cn(null, 'main')}>
-        {this.displayMainSlide()}
-        {this.displayOffersSlide()}
+        {content}
       </div>
     )
   }
