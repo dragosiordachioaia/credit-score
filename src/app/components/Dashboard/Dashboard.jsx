@@ -32,7 +32,6 @@ export default class Dashboard extends Component {
     getJSON(SCORE_DATA_URL).then(
       response => {
         this.setState({score: response});
-        console.log('success: ', response);
       },
       error => {
         this.setStatE({error});
@@ -41,14 +40,25 @@ export default class Dashboard extends Component {
   }
 
   displayMainSlide() {
+    const slides = [
+      {
+        type: 'score',
+        score: this.state.score.creditReportInfo.score,
+        maxScore: this.state.score.creditReportInfo.maxScoreValue,
+        color: '#a7ced1',
+      },
+      {
+        type: 'debt',
+        score: this.state.score.creditReportInfo.currentLongTermDebt,
+        maxScore: this.state.score.creditReportInfo.currentLongTermDebt * 1.5,
+        color: '#FF8E72',
+      }
+    ]
     return (
       <Slide
         animate={true}
-        score={this.state.score.creditReportInfo.score}
-        maxScore={this.state.score.creditReportInfo.maxScoreValue}
         size='big'
-        color={'#a7ced1'}
-        slides={['score', 'offers']}
+        slides={slides}
         style={{
           top: 'calc(50vh - 150px)',
           left: 'calc(50vw - 150px)'
@@ -58,14 +68,17 @@ export default class Dashboard extends Component {
   }
 
   displayOffersSlide() {
+    const slides = [{
+      type: 'offers',
+      score: 5,
+      maxScore: 5,
+      color: '#fff',
+    }]
     return (
       <Slide
-        score={5}
-        maxScore={5}
         animate={false}
         size='small'
-        color={'#fff'}
-        slides={['offers']}
+        slides={slides}
         style={{
           top: 'calc(50vh - 250px)',
           left: 'calc(50vw - 320px)'

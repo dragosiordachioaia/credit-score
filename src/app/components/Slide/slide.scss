@@ -5,6 +5,7 @@ $radius-small: 85px;
 
 @mixin slide--main($radius) {
   position: absolute;
+  cursor: pointer;
   //top: calc(50vh - #{$radius});
   //left: calc(50vw - #{$radius});
 

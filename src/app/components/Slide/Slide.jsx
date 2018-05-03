@@ -33,41 +33,44 @@ export default class Slide extends Component {
     this.getScoreSlide = this.getScoreSlide.bind(this);
     this.killTweens = this.killTweens.bind(this);
     this.onSlideClick = this.onSlideClick.bind(this);
+    this.onNewProps = this.onNewProps.bind(this);
   }
 
   componentDidMount() {
-    this.startAnimation();
+    this.onNewProps();
+  }
+
+  onNewProps() {
+    let newState = {
+      targetScore: this.props.slides[0].score,
+      maxScore: this.props.slides[0].maxScore,
+      currentSlide: 0,
+    };
+    let stateChangeCallback = this.startAnimation;
+    if(!this.props.animate) {
+      this.killTweens();
+      newState.currentScore = this.props.slides[0].score;
+      newState.currentScoreToDisplay = newState.currentScore;
+      stateChangeCallback = undefined;
+    }
+
+    this.setState(newState, stateChangeCallback);
   }
 
   componentWillUnmount() {
     this.killTweens();
   }
 
-  componentDidUpdate() {
+  componentDidUpdate(prevProps) {
     if(
-      this.props.score !== this.state.targetScore ||
-      this.props.maxScore !== this.state.maxScore
+      this.props.slides !== prevProps.slides
     ) {
-      if(this.props.animate) {
-        this.setState({
-          targetScore: this.props.score,
-          maxScore: this.props.maxScore,
-        }, this.startAnimation);
-      } else {
-        this.killTweens();
-        this.setState({
-          targetScore: this.props.score,
-          maxScore: this.props.maxScore,
-          currentScoreToDisplay: this.props.score,
-          currentScore: this.props.score,
-        });
-      }
+      this.onNewProps();
     }
   }
 
   startAnimation() {
     this.killTweens();
-
     this.valueTweenScore = this.state.currentScore;
     this.tweenScore = TweenMax.to(
       this,
@@ -112,7 +115,10 @@ export default class Slide extends Component {
         <p className={cn('small-text')}>
           Your credit score is
         </p>
-        <h2 className={cn('score-text')} style={{color: this.props.color}}>
+        <h2
+          className={cn('score-text')}
+          style={{color: this.props.slides[this.state.currentSlide].color}}
+        >
           {this.state.currentScoreToDisplay}
         </h2>
         <p className={cn('small-text')}>
@@ -121,7 +127,7 @@ export default class Slide extends Component {
         </p>
         <p
           className={cn('description-text')}
-          style={{color: this.props.color}}
+          style={{color: this.props.slides[this.state.currentSlide].color}}
         >
           Soaring high
         </p>
@@ -136,7 +142,10 @@ export default class Slide extends Component {
         className={cn('individual-slide')}
         style={{width: `${this.props.radius * 2}px`}}
       >
-        <h2 className={cn('score-text')} style={{color: this.props.color}}>
+        <h2
+          className={cn('score-text')}
+          style={{color: this.props.slides[this.state.currentSlide].color}}
+        >
           {this.state.currentScoreToDisplay}
         </h2>
         <p className={cn('small-text')}>
@@ -146,13 +155,43 @@ export default class Slide extends Component {
     )
   }
 
+  getDebtSlide() {
+    return (
+      <div
+        key='slide-debt'
+        className={cn('individual-slide')}
+        style={{width: `${this.props.radius * 2}px`}}
+      >
+        <p className={cn('small-text')}>
+          Your long term debt is
+        </p>
+        <h2
+          className={cn('score-text')}
+          style={{color: this.props.slides[this.state.currentSlide].color}}>
+          £{this.state.currentScoreToDisplay}
+        </h2>
+        <p className={cn('small-text')}>
+          Total credit limit {this.state.maxScore}
+        </p>
+        <p
+          className={cn('description-text')}
+          style={{color: this.props.slides[this.state.currentSlide].color}}
+        >
+          Down from last month
+        </p>
+      </div>
+    )
+  }
+
   displayContentReel() {
-    return this.props.slides.map(slideName => {
-      switch(slideName) {
+    return this.props.slides.map(slideData => {
+      switch(slideData.type) {
         case 'score':
           return this.getScoreSlide();
         case 'offers':
           return this.getOffersSlide();
+        case 'debt':
+          return this.getDebtSlide();
         default:
           return null;
       }
@@ -180,9 +219,19 @@ export default class Slide extends Component {
   }
 
   onSlideClick() {
+    let nextSlide = this.state.currentSlide + 1;
+    if(this.state.currentSlide >= this.props.slides.length - 1) {
+      nextSlide = 0;
+    }
+    let stateChangeCallback;
+    if(this.props.animate) {
+      stateChangeCallback = this.startAnimation;
+    }
     this.setState({
-      currentSlide: this.state.currentSlide + 1
-    });
+      currentSlide: nextSlide,
+      maxScore: this.props.slides[nextSlide].maxScore,
+      targetScore: this.props.slides[nextSlide].score,
+    }, stateChangeCallback);
   }
 
   render() {
@@ -211,7 +260,7 @@ export default class Slide extends Component {
           strokeWidth={strokeWidth}
           radius={radius - strokeWidth - spaceToEdge}
           angle={angle}
-          color={this.props.color}
+          color={this.props.slides[this.state.currentSlide].color}
         />
         <div className={cn('content')}>
           <div
