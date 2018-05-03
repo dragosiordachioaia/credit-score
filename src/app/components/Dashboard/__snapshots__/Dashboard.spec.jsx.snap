@@ -1,0 +1,143 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Dashboard component correctly displays mobile view 1`] = `
+<div
+  className="dashboard dashboard--main"
+>
+  mobile_view
+</div>
+`;
+
+exports[`Dashboard component correctly displays non-mobile view 1`] = `
+<div
+  className="dashboard dashboard--main"
+>
+  non_mobile_view
+</div>
+`;
+
+exports[`Dashboard component correctly renders error 1`] = `"There has been an error. Please try again later."`;
+
+exports[`Dashboard component correctly renders nothing when no score and no error 1`] = `null`;
+
+exports[`Dashboard component displayBalanceSlide renders correctly when height is big enough 1`] = `
+<Slide
+  animate={false}
+  size="small"
+  slides={
+    Array [
+      Object {
+        "color": "#fff",
+        "maxScore": 1,
+        "score": 1,
+        "type": "balance",
+      },
+    ]
+  }
+  style={
+    Object {
+      "left": "calc(50vw - 85px)",
+      "top": "calc(90vh - 140px)",
+    }
+  }
+/>
+`;
+
+exports[`Dashboard component displayBalanceSlide renders correctly when height is small 1`] = `null`;
+
+exports[`Dashboard component displayMainSlide renders correctly on mobile 1`] = `
+<Slide
+  animate={true}
+  size="big"
+  slides={
+    Array [
+      Object {
+        "color": "#a7ced1",
+        "maxScore": 700,
+        "score": 514,
+        "type": "score",
+      },
+      Object {
+        "change": -100,
+        "color": "#FCD29F",
+        "maxScore": 2000,
+        "score": 1000,
+        "type": "debt",
+      },
+    ]
+  }
+  style={
+    Object {
+      "left": "calc(50vw - 150px)",
+      "top": "calc(4vh)",
+    }
+  }
+/>
+`;
+
+exports[`Dashboard component displayMainSlide renders correctly on non mobile 1`] = `
+<Slide
+  animate={true}
+  size="big"
+  slides={
+    Array [
+      Object {
+        "color": "#a7ced1",
+        "maxScore": 700,
+        "score": 514,
+        "type": "score",
+      },
+      Object {
+        "change": -100,
+        "color": "#FCD29F",
+        "maxScore": 2000,
+        "score": 1000,
+        "type": "debt",
+      },
+    ]
+  }
+  style={
+    Object {
+      "left": "calc(50vw - 150px)",
+      "top": "calc(50vh - 150px)",
+    }
+  }
+/>
+`;
+
+exports[`Dashboard component displayOffersSlide renders correctly 1`] = `
+<Slide
+  animate={false}
+  size="small"
+  slides={
+    Array [
+      Object {
+        "color": "#fff",
+        "maxScore": 5,
+        "score": 5,
+        "type": "offers",
+      },
+    ]
+  }
+  style={
+    Object {
+      "left": "calc(50vw - 320px)",
+      "top": "calc(50vh - 250px)",
+    }
+  }
+/>
+`;
+
+exports[`Dashboard component mobile view displays the right contents 1`] = `
+<div>
+  main_slide
+  balance_slide
+</div>
+`;
+
+exports[`Dashboard component non-mobile view displays the right contents 1`] = `
+<div>
+  main_slide
+  offers_slide
+</div>
+`;

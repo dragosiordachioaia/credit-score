@@ -20,7 +20,7 @@ const slideScore = {
 
 let component;
 
-xdescribe('Slide component', () => {
+describe('Slide component', () => {
   it('renders nothing right after being mounted', () => {
     const slides = [slideScore];
     const component = renderer.create(

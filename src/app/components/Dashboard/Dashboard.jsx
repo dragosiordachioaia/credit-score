@@ -46,7 +46,9 @@ export default class Dashboard extends Component {
       error => {
         this.setState({error});
       }
-    );
+    ).catch(error => {
+      this.setState({error});
+    });
   }
 
   displayMainSlide({mobile}) {
@@ -69,7 +71,7 @@ export default class Dashboard extends Component {
 
     let top;
     if(mobile) {
-      top = 'calc(10vh)';
+      top = 'calc(4vh)';
     } else {
       top = 'calc(50vh - 150px)';
     }
@@ -108,11 +110,10 @@ export default class Dashboard extends Component {
   }
 
   displayBalanceSlide() {
-    if(window.innerHeight  ) {
-      // content = this.displayMobileView();
-    } else {
-      // content = this.displayNonMobileView();
+    if(window.innerHeight < 520) {
+      return null;
     }
+
     const slides = [{
       type: 'balance',
       score: 1,

@@ -42,7 +42,6 @@ describe('Slide helpers', () => {
   });
   it('getDebtSlide renders correctly when change is negative', () => {
     let currentState = Object.assign({}, state, {currentSlideIndex: 1});
-    console.warn('state:' , state);
     const result = helperMethods.getDebtSlide(props, currentState);
     expect(result).toMatchSnapshot();
   });

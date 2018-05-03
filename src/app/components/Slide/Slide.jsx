@@ -199,8 +199,6 @@ export default class Slide extends Component {
     }
     const strokeWidth = this.props.strokeWidth || 3;
     const spaceToEdge = 4;
-    console.log(this.state);
-    console.log(JSON.stringify(this.props));
     return (
       <div
         className={cn(null, `main-${this.props.size}`)}
