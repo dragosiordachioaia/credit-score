@@ -81,6 +81,9 @@ export const getDebtSlide = (props, state) => {
   let changeText = `£${Math.abs(currentSlideData.change)}`;
   if(currentSlideData.change < 0) {
     changeText = `-${changeText}`;
+    console.warn('NEGATIVE');
+  } else {
+    console.warn('POSITIVE');
   }
 
   return (

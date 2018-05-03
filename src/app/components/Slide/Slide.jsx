@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-
 import bemHelper from '../../utils/bem';
-
 import TweenMax from 'gsap/TweenMax';
 import EaseTypes from 'gsap/EasePack';
+
+import { slideSizes } from '../../constants/Constants';
+
 import {
   getScoreSlide,
   getOffersSlide,
@@ -67,8 +68,8 @@ export default class Slide extends Component {
       currentSlideIndex: 0,
     };
     let stateChangeCallback = this.startAnimation;
+    this.killTweens();
     if(!this.props.animate) {
-      this.killTweens();
       newState.currentCoefficientStroke = this.props.slides[0].score / this.props.slides[0].maxScore;
       newState.currentCoefficientNumber = newState.currentCoefficientStroke;
       stateChangeCallback = undefined;
@@ -144,19 +145,9 @@ export default class Slide extends Component {
   }
 
   getRadius(size) {
-    let radius;
-    switch(size) {
-      case 'big':
-        radius = 150;
-        break;
-      case 'medium':
-        radius = 120;
-        break;
-      case 'small':
-        radius = 85;
-        break;
-      default:
-        radius = 150;
+    let radius = slideSizes.big;
+    if(slideSizes.hasOwnProperty(size)) {
+      radius = slideSizes[size];
     }
     return radius;
   }
@@ -178,6 +169,9 @@ export default class Slide extends Component {
   }
 
   displayMarkers() {
+    if(this.props.slides.length <= 1) {
+      return null;
+    }
     return this.props.slides.map((slideData, index) => {
       let className = cn('marker');
       if(index === this.state.currentSlideIndex) {
@@ -205,7 +199,8 @@ export default class Slide extends Component {
     }
     const strokeWidth = this.props.strokeWidth || 3;
     const spaceToEdge = 4;
-
+    console.log(this.state);
+    console.log(JSON.stringify(this.props));
     return (
       <div
         className={cn(null, `main-${this.props.size}`)}

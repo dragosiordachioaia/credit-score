@@ -1,5 +1,58 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Slide component correctly displays balance slide 1`] = `
+Array [
+  "balance-slide",
+]
+`;
+
+exports[`Slide component correctly displays debt slide 1`] = `
+Array [
+  "debt-slide",
+]
+`;
+
+exports[`Slide component correctly displays markers for 2 slides 1`] = `
+Array [
+  <div
+    className="slide__marker slide__marker-selected"
+  />,
+  <div
+    className="slide__marker"
+  />,
+]
+`;
+
+exports[`Slide component correctly displays nothing for unknown slide type 1`] = `
+Array [
+  null,
+]
+`;
+
+exports[`Slide component correctly displays offers slide 1`] = `
+Array [
+  "offers-slide",
+]
+`;
+
+exports[`Slide component correctly displays score slide 1`] = `
+Array [
+  "score-slide",
+]
+`;
+
+exports[`Slide component correctly skips markers for 1 slide 1`] = `null`;
+
+exports[`Slide component correctly skips markers for no slides 1`] = `null`;
+
+exports[`Slide component properly returns radius 1`] = `150`;
+
+exports[`Slide component properly returns radius 2`] = `120`;
+
+exports[`Slide component properly returns radius 3`] = `85`;
+
+exports[`Slide component properly returns radius 4`] = `150`;
+
 exports[`Slide component renders correctly when 1 slide 1`] = `
 <div
   className="slide slide--main-big"
@@ -35,11 +88,7 @@ exports[`Slide component renders correctly when 1 slide 1`] = `
   </div>
   <div
     className="slide__marker-container"
-  >
-    <div
-      className="slide__marker slide__marker-selected"
-    />
-  </div>
+  />
 </div>
 `;
 

@@ -1,0 +1,190 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Slide helpers getBalanceSlide renders correctly 1`] = `
+<div
+  className="slide__individual-slide"
+  style={
+    Object {
+      "width": "300px",
+    }
+  }
+>
+  <img
+    className="slide__cards"
+    src="/cards.png"
+  />
+  <p
+    className="slide__small-text"
+  >
+    Transfer your 
+    <br />
+     balance!
+  </p>
+</div>
+`;
+
+exports[`Slide helpers getDebtSlide renders correctly when change is negative 1`] = `
+<div
+  className="slide__individual-slide"
+  style={
+    Object {
+      "width": "300px",
+    }
+  }
+>
+  <p
+    className="slide__small-text"
+  >
+    Your long term debt is
+  </p>
+  <h2
+    className="slide__score-text"
+    style={
+      Object {
+        "color": "#FCD29F",
+      }
+    }
+  >
+    £
+    36247
+  </h2>
+  <p
+    className="slide__small-text"
+  >
+    Change since last check: 
+    <b>
+      -£327
+    </b>
+  </p>
+  <p
+    className="slide__description-text"
+    style={
+      Object {
+        "color": "#FCD29F",
+      }
+    }
+  >
+    You're doing great!
+  </p>
+</div>
+`;
+
+exports[`Slide helpers getDebtSlide renders correctly when change is positive 1`] = `
+<div
+  className="slide__individual-slide"
+  style={
+    Object {
+      "width": "300px",
+    }
+  }
+>
+  <p
+    className="slide__small-text"
+  >
+    Your long term debt is
+  </p>
+  <h2
+    className="slide__score-text"
+    style={
+      Object {
+        "color": "#FCD29F",
+      }
+    }
+  >
+    £
+    36247
+  </h2>
+  <p
+    className="slide__small-text"
+  >
+    Change since last check: 
+    <b>
+      £327
+    </b>
+  </p>
+  <p
+    className="slide__description-text"
+    style={
+      Object {
+        "color": "#FCD29F",
+      }
+    }
+  >
+    You're doing great!
+  </p>
+</div>
+`;
+
+exports[`Slide helpers getOffersSlide renders correctly 1`] = `
+<div
+  className="slide__individual-slide"
+  style={
+    Object {
+      "width": "300px",
+    }
+  }
+>
+  <h2
+    className="slide__score-text"
+    style={
+      Object {
+        "color": "#FCD29F",
+      }
+    }
+  >
+    36247
+  </h2>
+  <p
+    className="slide__small-text"
+  >
+    New offers
+  </p>
+</div>
+`;
+
+exports[`Slide helpers getScoreSlide renders correctly 1`] = `
+<div
+  className="slide__individual-slide"
+  style={
+    Object {
+      "width": "300px",
+    }
+  }
+>
+  <p
+    className="slide__small-text"
+  >
+    Your credit score is
+  </p>
+  <h2
+    className="slide__score-text"
+    style={
+      Object {
+        "color": "#a7ced1",
+      }
+    }
+  >
+    514
+  </h2>
+  <p
+    className="slide__small-text"
+  >
+    out of
+    <b
+      className="slide__max-score"
+    >
+      700
+    </b>
+  </p>
+  <p
+    className="slide__description-text"
+    style={
+      Object {
+        "color": "#a7ced1",
+      }
+    }
+  >
+    Soaring high
+  </p>
+</div>
+`;
