@@ -11,13 +11,14 @@ import { drawArc } from './SVGArcHelpers';
 const SVGArc = props => {
   const boxSize = props.radius * 2 + props.strokeWidth * 2;
   const viewBox = [0, 0, boxSize, boxSize].join(' ');
+  const angle = props.angle % 360;
 
   const d = drawArc({
     x: props.strokeWidth,
     y: props.strokeWidth,
     radius: props.radius,
     startAngle: 0,
-    endAngle: props.angle
+    endAngle: angle
   });
 
   const transform = `translate(${props.radius} ${props.radius})`;
