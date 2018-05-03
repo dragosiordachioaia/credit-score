@@ -8,9 +8,6 @@ export const polarToCartesian = (centerX, centerY, radius, angleInDegrees) => {
 
 export const drawArc = ({x, y, radius, startAngle, endAngle}) => {
   let isCompleteCircle = Math.abs(startAngle - endAngle) % 360 == 0;
-  if(isCompleteCircle) {
-    endAngle -= 0.001;
-  }
   const startPoint = polarToCartesian(x, y, radius, endAngle);
   const endPoint = polarToCartesian(x, y, radius, startAngle);
   let largeArcFlag = endAngle - startAngle <= 180 ? 0 : 1;

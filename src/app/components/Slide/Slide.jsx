@@ -18,8 +18,8 @@ export default class Slide extends Component {
     this.state = {
       targetScore: 0,
       maxScore: 0,
-      currentScore: 0,
-      currentScoreToDisplay: 0,
+      currentCoefficientStroke: 0,
+      currentCoefficientNumber: 0,
       currentSlide: 0,
       slides: null,
     };
@@ -49,8 +49,8 @@ export default class Slide extends Component {
     let stateChangeCallback = this.startAnimation;
     if(!this.props.animate) {
       this.killTweens();
-      newState.currentScore = this.props.slides[0].score;
-      newState.currentScoreToDisplay = newState.currentScore;
+      newState.currentCoefficientStroke = this.props.slides[0].score / this.props.slides[0].maxScore;
+      newState.currentCoefficientNumber = newState.currentCoefficientStroke;
       stateChangeCallback = undefined;
     }
 
@@ -71,17 +71,17 @@ export default class Slide extends Component {
 
   startAnimation() {
     this.killTweens();
-    this.valueTweenScore = this.state.currentScore;
+    this.valueTweenScore = this.state.currentCoefficientStroke / this.state.maxScore;
     this.tweenScore = TweenMax.to(
       this,
       this.animationDuration,
       {
-        valueTweenScore: this.state.targetScore,
+        valueTweenScore: this.state.targetScore / this.state.maxScore,
         ease: EaseTypes.Strong.easeOut,
         onUpdate: () => {
           this.setState({
-            currentScoreToDisplay: Math.round(this.valueTweenScore),
-            currentScore: Math.round(this.valueTweenStroke)
+            currentCoefficientNumber: this.valueTweenScore,
+            currentCoefficientStroke: this.valueTweenStroke
           });
         }
       }
@@ -90,7 +90,7 @@ export default class Slide extends Component {
       this,
       this.animationDuration,
       {
-        valueTweenStroke: this.state.targetScore,
+        valueTweenStroke: this.state.targetScore / this.state.maxScore,
         ease: EaseTypes.Bounce.easeOut,
       }
     );
@@ -106,6 +106,10 @@ export default class Slide extends Component {
   }
 
   getScoreSlide() {
+    const crtScoreToDisplay =
+      this.state.currentCoefficientNumber *
+      this.props.slides[this.state.currentSlide].score;
+
     return (
       <div
         key='slide-score'
@@ -119,7 +123,7 @@ export default class Slide extends Component {
           className={cn('score-text')}
           style={{color: this.props.slides[this.state.currentSlide].color}}
         >
-          {this.state.currentScoreToDisplay}
+          {Math.round(crtScoreToDisplay)}
         </h2>
         <p className={cn('small-text')}>
           out of
@@ -136,6 +140,10 @@ export default class Slide extends Component {
   }
 
   getOffersSlide() {
+    const crtScoreToDisplay =
+      this.state.currentCoefficientNumber *
+      this.props.slides[this.state.currentSlide].score;
+
     return (
       <div
         key='slide-offers'
@@ -146,7 +154,7 @@ export default class Slide extends Component {
           className={cn('score-text')}
           style={{color: this.props.slides[this.state.currentSlide].color}}
         >
-          {this.state.currentScoreToDisplay}
+          {Math.round(crtScoreToDisplay)}
         </h2>
         <p className={cn('small-text')}>
           New offers
@@ -156,6 +164,10 @@ export default class Slide extends Component {
   }
 
   getDebtSlide() {
+    const crtScoreToDisplay =
+      this.state.currentCoefficientNumber *
+      this.props.slides[this.state.currentSlide].score;
+
     return (
       <div
         key='slide-debt'
@@ -168,16 +180,16 @@ export default class Slide extends Component {
         <h2
           className={cn('score-text')}
           style={{color: this.props.slides[this.state.currentSlide].color}}>
-          £{this.state.currentScoreToDisplay}
+          £{Math.round(crtScoreToDisplay)}
         </h2>
         <p className={cn('small-text')}>
-          Total credit limit {this.state.maxScore}
+          Total credit limit £{this.state.maxScore}
         </p>
         <p
           className={cn('description-text')}
           style={{color: this.props.slides[this.state.currentSlide].color}}
         >
-          Down from last month
+          You're doing excellent!
         </p>
       </div>
     )
@@ -236,15 +248,18 @@ export default class Slide extends Component {
 
   render() {
     if(
-      !this.state.currentScore ||
-      !this.state.currentScoreToDisplay ||
+      !this.state.currentCoefficientStroke ||
+      !this.state.currentCoefficientNumber ||
       !this.state.maxScore
     ) {
       return null;
     }
     let radius = this.getRadius(this.props.size);
 
-    const angle = (this.state.currentScore / this.state.maxScore) * 360;
+    let angle = this.state.currentCoefficientStroke * 360;
+    if(angle % 360 === 0) {
+      angle = 359.9;
+    }
     const strokeWidth = this.props.strokeWidth || 3;
     const spaceToEdge = 4;
 

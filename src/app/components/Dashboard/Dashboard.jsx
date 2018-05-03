@@ -50,7 +50,7 @@ export default class Dashboard extends Component {
       {
         type: 'debt',
         score: this.state.score.creditReportInfo.currentLongTermDebt,
-        maxScore: this.state.score.creditReportInfo.currentLongTermDebt * 1.5,
+        maxScore: this.state.score.creditReportInfo.currentLongTermDebt * 2,
         color: '#FF8E72',
       }
     ]
