@@ -106,9 +106,8 @@ export default class Slide extends Component {
   }
 
   getScoreSlide() {
-    const crtScoreToDisplay =
-      this.state.currentCoefficientNumber *
-      this.props.slides[this.state.currentSlide].score;
+    const crtSlide = this.props.slides[this.state.currentSlide];
+    const crtScoreToDisplay = this.state.currentCoefficientNumber *crtSlide.maxScore;
 
     return (
       <div
@@ -140,9 +139,8 @@ export default class Slide extends Component {
   }
 
   getOffersSlide() {
-    const crtScoreToDisplay =
-      this.state.currentCoefficientNumber *
-      this.props.slides[this.state.currentSlide].score;
+    const crtSlide = this.props.slides[this.state.currentSlide];
+    const crtScoreToDisplay = this.state.currentCoefficientNumber *crtSlide.maxScore;
 
     return (
       <div
@@ -164,9 +162,13 @@ export default class Slide extends Component {
   }
 
   getDebtSlide() {
-    const crtScoreToDisplay =
-      this.state.currentCoefficientNumber *
-      this.props.slides[this.state.currentSlide].score;
+    const crtSlide = this.props.slides[this.state.currentSlide];
+    const crtScoreToDisplay = this.state.currentCoefficientNumber *crtSlide.maxScore;
+
+    let changeText = `£${Math.abs(crtSlide.change)}`;
+    if(crtSlide.change < 0) {
+      changeText = `-${changeText}`;
+    }
 
     return (
       <div
@@ -183,7 +185,7 @@ export default class Slide extends Component {
           £{Math.round(crtScoreToDisplay)}
         </h2>
         <p className={cn('small-text')}>
-          Total credit limit £{this.state.maxScore}
+          Change since last check: <b>{changeText}</b>
         </p>
         <p
           className={cn('description-text')}

@@ -40,18 +40,20 @@ export default class Dashboard extends Component {
   }
 
   displayMainSlide() {
+    const scoreData = this.state.score.creditReportInfo;
     const slides = [
       {
         type: 'score',
-        score: this.state.score.creditReportInfo.score,
-        maxScore: this.state.score.creditReportInfo.maxScoreValue,
+        score: scoreData.score,
+        maxScore: scoreData.maxScoreValue,
         color: '#a7ced1',
       },
       {
         type: 'debt',
-        score: this.state.score.creditReportInfo.currentLongTermDebt,
-        maxScore: this.state.score.creditReportInfo.currentLongTermDebt * 2,
+        score: scoreData.currentLongTermDebt,
+        maxScore: scoreData.currentLongTermDebt * 2,
         color: '#FCD29F',
+        change: scoreData.changeInLongTermDebt
       }
     ]
     return (
