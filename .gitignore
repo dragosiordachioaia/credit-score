@@ -1,7 +1,6 @@
 .idea
 node_modules/
 dist/
-compiled/
 tests/coverage/
 tests_output/
 tests_screenshots/

@@ -1,0 +1,32 @@
+body {
+  background: no-repeat top;
+  background-size: cover;
+  // background-image: url('/_background--dashboard.png');
+  background-image: url('/_background--dashboard.png');
+  // background-image: url('/bg_green.jpg');
+  // background-image: url('/bg_forest.jpg');
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  font-family: AktivGrotesk, Helvetica, 'sans-serif';
+  overflow: hidden;
+}
+
+p {
+  font-weight: 100;
+  margin: 0;
+}
+
+b {
+  font-weight: 300;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: 100;
+  margin: 0;
+}
