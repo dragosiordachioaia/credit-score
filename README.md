@@ -1,7 +1,7 @@
 ## Credit Score Component
 ![Demo gif](demo.gif)
 
-[Live demo] (http://ec16edd1.ngrok.io/) (self-hosted website, so might also be offline)
+[Live demo] (http://ec16edd1.ngrok.io/) (self-hosted website, so might also be offline and speed will probably be slow)
 
 ## Goal
 Create a slider component that animates a circular path according to a predefined value, while also having a 'frosted glass' background.
@@ -22,6 +22,10 @@ The app only uses React to manage state, as adding Redux would have added unnece
 Styling is achieved via external .scss files, and the naming of elements follows the BEM convention. External stylesheets are kept in the same place as the component for increased modularity, as are the test files.
 
 Testing is done with Jest, using snapshot testing for function outputs and for the rest, asserting that functions are called only when they need to. Testing coverage is as close to 100% as possible without making the tests unnecessarily brittle.
+
+The solution could benefit from more cross-browser compatibility, and that would indeed be achieved in a production setting.
+
+It works perfectly fine on Chrome, Firefox and Safari.
 
 --------------------------
 ### Unit testing coverage:
