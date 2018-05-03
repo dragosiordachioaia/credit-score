@@ -1,31 +1,80 @@
 $border-width: 1px;
-$slide-radius: 150px;
+$radius-big: 150px;
+$radius-medium: 120px;
+$radius-small: 85px;
 
-@keyframes scale-in{
+@mixin slide--main($radius) {
+  position: absolute;
+  //top: calc(50vh - #{$radius});
+  //left: calc(50vw - #{$radius});
+
+  width: $radius * 2;
+  height: $radius * 2;
+  border-radius: 50%;
+  clip-path: circle(10px at center);
+
+  animation-duration: 0.7s;
+  animation-iteration-count: 1;
+  animation-delay: 0s;
+  animation-fill-mode: forwards;
+
+  .slide__individual-slide {
+    width: $radius * 2;
+    display: inline-block;
+  }
+}
+
+@keyframes scale-in-big {
   0% {
     clip-path: circle(0px at center);
   }
   100% {
-    clip-path: circle($slide-radius at center);
+    clip-path: circle($radius-big at center);
+  }
+}
+
+@keyframes scale-in-medium {
+  0% {
+    clip-path: circle(0px at center);
+  }
+  100% {
+    clip-path: circle($radius-medium at center);
+  }
+}
+
+@keyframes scale-in-small {
+  0% {
+    clip-path: circle(0px at center);
+  }
+  100% {
+    clip-path: circle($radius-small at center);
   }
 }
 
 .slide {
-  &--main {
-    position: absolute;
-    top: calc(50vh - #{$slide-radius});
-    left: calc(50vw - #{$slide-radius});
-    width: $slide-radius * 2;
-    height: $slide-radius * 2;
-    border-radius: 50%;
-    clip-path: circle(0px at center);
-
-    animation-name: scale-in;
-    animation-duration: 0.7s;
-    animation-iteration-count: 1;
-    animation-delay: 0s;
-    animation-fill-mode: forwards;
+  &--main-big {
+    @include slide--main($radius-big);
+    animation-name: scale-in-big;
+    .slide__content {
+      top: $radius-big * 0.5;
+    }
   }
+  &--main-medium {
+    @include slide--main($radius-medium);
+    animation-name: scale-in-medium;
+    .slide__content {
+      top: $radius-medium * 0.1;
+    }
+  }
+  &--main-small {
+    @include slide--main($radius-small);
+    animation-name: scale-in-small;
+    .slide__content {
+      top: $radius-small * 0.3;
+    }
+  }
+
+
   &__bg {
     z-index: -1;
     width: 100vw;
@@ -36,7 +85,9 @@ $slide-radius: 150px;
     background-color: lightblue;
     background: no-repeat top;
     background-size: 100vw 100vh;
-    background-image: url('/_background--dashboard.png');
+    // background-image: url('/_background--dashboard.png');
+    // background-image: url('_background--dashboard.jpg');
+    background-image: url('/background--dashboard.jpg');
     filter: blur(12px) brightness(1.1);
   }
   &__border {
@@ -52,7 +103,6 @@ $slide-radius: 150px;
     width: calc(100% - #{$border-width*2});
     height: calc(100% - #{$border-width * 2});
     position: absolute;
-    top: 20%;
     left: 0;
     text-align: center;
     color: #fff;
@@ -69,9 +119,7 @@ $slide-radius: 150px;
   &__max-score {
     margin-left: 5px;
   }
-  &__individual-slide {
 
-  }
   &__description-text {
     margin-top: 1.5em;
   }

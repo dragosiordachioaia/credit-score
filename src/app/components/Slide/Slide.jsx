@@ -32,6 +32,7 @@ export default class Slide extends Component {
     this.displayContentReel = this.displayContentReel.bind(this);
     this.getScoreSlide = this.getScoreSlide.bind(this);
     this.killTweens = this.killTweens.bind(this);
+    this.onSlideClick = this.onSlideClick.bind(this);
   }
 
   componentDidMount() {
@@ -47,10 +48,20 @@ export default class Slide extends Component {
       this.props.score !== this.state.targetScore ||
       this.props.maxScore !== this.state.maxScore
     ) {
-      this.setState({
-        targetScore: this.props.score,
-        maxScore: this.props.maxScore,
-      }, this.startAnimation);
+      if(this.props.animate) {
+        this.setState({
+          targetScore: this.props.score,
+          maxScore: this.props.maxScore,
+        }, this.startAnimation);
+      } else {
+        this.killTweens();
+        this.setState({
+          targetScore: this.props.score,
+          maxScore: this.props.maxScore,
+          currentScoreToDisplay: this.props.score,
+          currentScore: this.props.score,
+        });
+      }
     }
   }
 
@@ -118,14 +129,59 @@ export default class Slide extends Component {
     )
   }
 
+  getOffersSlide() {
+    return (
+      <div
+        key='slide-offers'
+        className={cn('individual-slide')}
+        style={{width: `${this.props.radius * 2}px`}}
+      >
+        <h2 className={cn('score-text')} style={{color: this.props.color}}>
+          {this.state.currentScoreToDisplay}
+        </h2>
+        <p className={cn('small-text')}>
+          New offers
+        </p>
+      </div>
+    )
+  }
+
   displayContentReel() {
     return this.props.slides.map(slideName => {
       switch(slideName) {
         case 'score':
           return this.getScoreSlide();
+        case 'offers':
+          return this.getOffersSlide();
         default:
           return null;
       }
+    });
+  }
+
+  getRadius(size) {
+    let radius;
+    switch(size) {
+      case 'big':
+        radius = 150;
+        break;
+      case 'medium':
+        radius = 120;
+        break;
+
+      case 'small':
+        radius = 85;
+        break;
+
+      default:
+        radius = 150;
+    }
+    return radius;
+  }
+
+  onSlideClick() {
+    this.setState({
+      currentSlide: this.state.currentSlide + 1
     });
   }
 
@@ -137,24 +193,33 @@ export default class Slide extends Component {
     ) {
       return null;
     }
+    let radius = this.getRadius(this.props.size);
+
     const angle = (this.state.currentScore / this.state.maxScore) * 360;
     const strokeWidth = this.props.strokeWidth || 3;
     const spaceToEdge = 4;
 
     return (
-      <div className={cn(null, 'main', 'big')}>
+      <div
+        className={cn(null, `main-${this.props.size}`)}
+        style={this.props.style}
+        onClick={this.onSlideClick}
+      >
         <div className={cn('bg')}></div>
         <div className={cn('border')}></div>
         <SVGArc
           strokeWidth={strokeWidth}
-          radius={this.props.radius - strokeWidth - spaceToEdge}
+          radius={radius - strokeWidth - spaceToEdge}
           angle={angle}
           color={this.props.color}
         />
         <div className={cn('content')}>
           <div
             className={cn('reel')}
-            style={{left: `${this.state.currentSlide * this.props.radius}px`}}
+            style={{
+              left: `-${this.state.currentSlide * radius * 2}px`,
+              width: `${this.props.slides.length * radius * 2}px`
+            }}
           >
             {this.displayContentReel()}
           </div>

@@ -41,14 +41,35 @@ export default class Dashboard extends Component {
   }
 
   displayMainSlide() {
-    const color = '#80cddc';
     return (
       <Slide
+        animate={true}
         score={this.state.score.creditReportInfo.score}
         maxScore={this.state.score.creditReportInfo.maxScoreValue}
-        radius={150}
-        color={color}
-        slides={['score']}
+        size='big'
+        color={'#a7ced1'}
+        slides={['score', 'offers']}
+        style={{
+          top: 'calc(50vh - 150px)',
+          left: 'calc(50vw - 150px)'
+        }}
+      />
+    );
+  }
+
+  displayOffersSlide() {
+    return (
+      <Slide
+        score={5}
+        maxScore={5}
+        animate={false}
+        size='small'
+        color={'#fff'}
+        slides={['offers']}
+        style={{
+          top: 'calc(50vh - 250px)',
+          left: 'calc(50vw - 320px)'
+        }}
       />
     );
   }
@@ -63,6 +84,7 @@ export default class Dashboard extends Component {
     return (
       <div className={cn(null, 'main')}>
         {this.displayMainSlide()}
+        {this.displayOffersSlide()}
       </div>
     )
   }
