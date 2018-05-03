@@ -4,6 +4,12 @@ import bemHelper from '../../utils/bem';
 
 import TweenMax from 'gsap/TweenMax';
 import EaseTypes from 'gsap/EasePack';
+import {
+  getScoreSlide,
+  getOffersSlide,
+  getBalanceSlide,
+  getDebtSlide,
+} from './SlideHelper';
 import _ from 'underscore';
 
 import './slide.scss';
@@ -29,7 +35,7 @@ export default class Slide extends Component {
       currentCoefficientNumber: 0,
 
       // the index of the current slide
-      currentSlide: 0,
+      currentSlideIndex: 0,
     };
     this.animationDuration = 2;
 
@@ -38,12 +44,13 @@ export default class Slide extends Component {
     this.valueTweenScore = 0;
     this.valueTweenStroke = 0;
 
-    // 
+    // we need to keep a reference to the tween objects so we can kill them when unmounting
     this.tweenStroke = null;
     this.tweenScore = null;
+
     this.startAnimation = this.startAnimation.bind(this);
     this.displayContentReel = this.displayContentReel.bind(this);
-    this.getScoreSlide = this.getScoreSlide.bind(this);
+    // this.getScoreSlide = this.getScoreSlide.bind(this);
     this.killTweens = this.killTweens.bind(this);
     this.onSlideClick = this.onSlideClick.bind(this);
     this.onNewProps = this.onNewProps.bind(this);
@@ -57,7 +64,7 @@ export default class Slide extends Component {
     let newState = {
       targetScore: this.props.slides[0].score,
       maxScore: this.props.slides[0].maxScore,
-      currentSlide: 0,
+      currentSlideIndex: 0,
     };
     let stateChangeCallback = this.startAnimation;
     if(!this.props.animate) {
@@ -83,13 +90,15 @@ export default class Slide extends Component {
 
   startAnimation() {
     this.killTweens();
-    this.valueTweenScore = this.state.currentCoefficientStroke / this.state.maxScore;
+
     this.tweenScore = TweenMax.to(
       this,
       this.animationDuration,
       {
         valueTweenScore: this.state.targetScore / this.state.maxScore,
         ease: EaseTypes.Strong.easeOut,
+        // we use the update handle from this tween to update both values instead
+        // of doing it for both tweens in order to avoid re-rendering twice per cycle
         onUpdate: () => {
           this.setState({
             currentCoefficientNumber: this.valueTweenScore,
@@ -117,124 +126,17 @@ export default class Slide extends Component {
     }
   }
 
-  getScoreSlide() {
-    const crtSlide = this.props.slides[this.state.currentSlide];
-    const crtScoreToDisplay = this.state.currentCoefficientNumber *crtSlide.maxScore;
-
-    return (
-      <div
-        key='slide-score'
-        className={cn('individual-slide')}
-        style={{width: `${this.props.radius * 2}px`}}
-      >
-        <p className={cn('small-text')}>
-          Your credit score is
-        </p>
-        <h2
-          className={cn('score-text')}
-          style={{color: this.props.slides[this.state.currentSlide].color}}
-        >
-          {Math.round(crtScoreToDisplay)}
-        </h2>
-        <p className={cn('small-text')}>
-          out of
-          <b className={cn('max-score')}>{this.state.maxScore}</b>
-        </p>
-        <p
-          className={cn('description-text')}
-          style={{color: this.props.slides[this.state.currentSlide].color}}
-        >
-          Soaring high
-        </p>
-      </div>
-    )
-  }
-
-  getOffersSlide() {
-    const crtSlide = this.props.slides[this.state.currentSlide];
-    const crtScoreToDisplay = this.state.currentCoefficientNumber *crtSlide.maxScore;
-
-    return (
-      <div
-        key='slide-offers'
-        className={cn('individual-slide')}
-        style={{width: `${this.props.radius * 2}px`}}
-      >
-        <h2
-          className={cn('score-text')}
-          style={{color: this.props.slides[this.state.currentSlide].color}}
-        >
-          {Math.round(crtScoreToDisplay)}
-        </h2>
-        <p className={cn('small-text')}>
-          New offers
-        </p>
-      </div>
-    )
-  }
-
-  getBalanceSlide() {
-    return (
-      <div
-        key='slide-offers'
-        className={cn('individual-slide')}
-        style={{width: `${this.props.radius * 2}px`}}
-      >
-        <img src='/cards.png' className={cn('cards')}></img>
-        <p className={cn('small-text')}>
-          Transfer your <br /> balance!
-        </p>
-      </div>
-    )
-  }
-
-  getDebtSlide() {
-    const crtSlide = this.props.slides[this.state.currentSlide];
-    const crtScoreToDisplay = this.state.currentCoefficientNumber *crtSlide.maxScore;
-
-    let changeText = `£${Math.abs(crtSlide.change)}`;
-    if(crtSlide.change < 0) {
-      changeText = `-${changeText}`;
-    }
-
-    return (
-      <div
-        key='slide-debt'
-        className={cn('individual-slide')}
-        style={{width: `${this.props.radius * 2}px`}}
-      >
-        <p className={cn('small-text')}>
-          Your long term debt is
-        </p>
-        <h2
-          className={cn('score-text')}
-          style={{color: this.props.slides[this.state.currentSlide].color}}>
-          £{Math.round(crtScoreToDisplay)}
-        </h2>
-        <p className={cn('small-text')}>
-          Change since last check: <b>{changeText}</b>
-        </p>
-        <p
-          className={cn('description-text')}
-          style={{color: this.props.slides[this.state.currentSlide].color}}
-        >
-          You're doing great!
-        </p>
-      </div>
-    )
-  }
-
   displayContentReel() {
     return this.props.slides.map(slideData => {
       switch(slideData.type) {
         case 'score':
-          return this.getScoreSlide();
+          return getScoreSlide(this.props, this.state);
         case 'offers':
-          return this.getOffersSlide();
+          return getOffersSlide(this.props, this.state);
         case 'debt':
-          return this.getDebtSlide();
+          return getDebtSlide(this.props, this.state);
         case 'balance':
-          return this.getBalanceSlide();
+          return getBalanceSlide(this.props, this.state);
         default:
           return null;
       }
@@ -262,8 +164,8 @@ export default class Slide extends Component {
   }
 
   onSlideClick() {
-    let nextSlide = this.state.currentSlide + 1;
-    if(this.state.currentSlide >= this.props.slides.length - 1) {
+    let nextSlide = this.state.currentSlideIndex + 1;
+    if(this.state.currentSlideIndex >= this.props.slides.length - 1) {
       nextSlide = 0;
     }
     let stateChangeCallback;
@@ -271,7 +173,7 @@ export default class Slide extends Component {
       stateChangeCallback = this.startAnimation;
     }
     this.setState({
-      currentSlide: nextSlide,
+      currentSlideIndex: nextSlide,
       maxScore: this.props.slides[nextSlide].maxScore,
       targetScore: this.props.slides[nextSlide].score,
     }, stateChangeCallback);
@@ -306,13 +208,13 @@ export default class Slide extends Component {
           strokeWidth={strokeWidth}
           radius={radius - strokeWidth - spaceToEdge}
           angle={angle}
-          color={this.props.slides[this.state.currentSlide].color}
+          color={this.props.slides[this.state.currentSlideIndex].color}
         />
         <div className={cn('content')}>
           <div
             className={cn('reel')}
             style={{
-              left: `-${this.state.currentSlide * radius * 2}px`,
+              left: `-${this.state.currentSlideIndex * radius * 2}px`,
               width: `${this.props.slides.length * radius * 2}px`
             }}
           >
