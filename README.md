@@ -1,6 +1,7 @@
 ## Credit Score Component
 ![Demo gif](demo.gif)
 
+
 [Live demo] (http://ec16edd1.ngrok.io/) 
 (self-hosted website, so might also be offline and speed will probably be slow)
 
@@ -24,14 +25,28 @@ Styling is achieved via external .scss files, and the naming of elements follows
 
 Testing is done with Jest, using snapshot testing for function outputs and for the rest, asserting that functions are called only when they need to. Testing coverage is as close to 100% as possible without making the tests unnecessarily brittle.
 
-The solution could benefit from more cross-browser compatibility, and that would indeed be achieved in a production setting.
+The solution could benefit from more cross-browser compatibility (i.e. IE support), and that would indeed be achieved in a production setting.
 
-It works perfectly fine on Chrome, Firefox and Safari.
+-----------------
+
+###Supported browsers:
+
+Chrome, Firefox, Safari, Opera, Edge 
+
+###Supported platforms:
+
+Mac OS X, Windows 8, Windows 10, Android, iOS
 
 --------------------------
 ### Unit testing coverage:
 
 ![Test coverage screenshot](test-coverage.jpg)
+
+## Running the app
+
+ * Run: `yarn start:webpack`
+ * Run: `yarn start:dev` _(in a new terminal)_
+ * Goto: `http://localhost:3030/`
 
 
 
