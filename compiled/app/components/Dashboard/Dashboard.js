@@ -107,6 +107,15 @@ function (_Component) {
     value: function displayMainSlide(_ref) {
       var mobile = _ref.mobile;
       var scoreData = this.state.score.creditReportInfo;
+      var maxDebt;
+      var debtLimit = scoreData.currentLongTermCreditLimit;
+
+      if (!debtLimit) {
+        maxDebt = Number.MAX_SAFE_INTEGER;
+      } else {
+        maxDebt = debtLimit;
+      }
+
       var slides = [{
         type: 'score',
         score: scoreData.score,
@@ -115,14 +124,15 @@ function (_Component) {
       }, {
         type: 'debt',
         score: scoreData.currentLongTermDebt,
-        maxScore: scoreData.currentLongTermDebt * 2,
+        maxScore: maxDebt,
         color: '#FCD29F',
+        limit: scoreData.currentLongTermCreditLimit || 0,
         change: scoreData.changeInLongTermDebt
       }];
-      var top; // we want the score slider to be positioned different, depending on screen size
+      var top; // we want the score slider to be positioned differently, depending on screen size
 
-      if (mobile) {
-        top = 'calc(4vh)';
+      if (mobile && window.innerHeight > 520) {
+        top = 'calc(50vh - 250px)';
       } else {
         top = 'calc(50vh - 150px)';
       }
@@ -140,6 +150,10 @@ function (_Component) {
   }, {
     key: "displayOffersSlide",
     value: function displayOffersSlide() {
+      if (window.innerHeight < 520) {
+        return null;
+      }
+
       var slides = [{
         type: 'offers',
         score: 5,
@@ -174,7 +188,7 @@ function (_Component) {
         size: "small",
         slides: slides,
         style: {
-          top: 'calc(4vh + 300px + 30px)',
+          top: 'calc(50vh + 80px)',
           left: 'calc(50vw - 85px)'
         }
       });

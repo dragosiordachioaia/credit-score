@@ -16,6 +16,9 @@ $radius-small: 85px;
   animation-delay: 0s;
   animation-fill-mode: forwards;
 
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+  -webkit-tap-highlight-color: transparent;
+
   .slide__individual-slide {
     width: $radius * 2;
     display: inline-block;
@@ -54,7 +57,7 @@ $radius-small: 85px;
     @include slide--main($radius-big);
     animation-name: scale-in-big;
     .slide__reel {
-      top: $radius-big * 0.5;
+      top: $radius-big * 0.4;
     }
   }
   &--main-medium {
@@ -82,12 +85,8 @@ $radius-small: 85px;
     position: fixed;
     background-color: lightblue;
     background: no-repeat top;
-    // background-size: 100vw 100vh;
     background-size: cover;
-    // background-image: url('/_background--dashboard.png');
     background-image: url('/_background--dashboard.png');
-    // background-image: url('/bg_forest.jpg');
-    // background-image: url('/bg_green.jpg');
     filter: blur(12px) brightness(1.1);
   }
   &__border {

@@ -129,12 +129,16 @@ function (_Component) {
     value: function startAnimation() {
       var _this2 = this;
 
-      this.killTweens();
+      this.killTweens(); // we reset this so it always grows from 0 to our value for the desired effect
+      // we do not neet to reset the 'stroke' one, because we want that one to
+      // animate from the current position to the next
+
+      this.valueTweenScore = 0;
       this.tweenScore = _TweenMax.default.to(this, this.animationDuration, {
         valueTweenScore: this.state.targetScore / this.state.maxScore,
         ease: _EasePack.default.Strong.easeOut,
         // we use the update handle from this tween to update both values instead
-        // of doing it for both tweens in order to avoid re-rendering twice per cycle
+        // of doing it for both tweens in order to avoid re-rendering twice per animation cycle
         onUpdate: function onUpdate() {
           _this2.setState({
             currentCoefficientNumber: _this2.valueTweenScore,

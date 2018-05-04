@@ -86,10 +86,14 @@ exports.getBalanceSlide = getBalanceSlide;
 var getDebtSlide = function getDebtSlide(props, state) {
   var currentSlideData = props.slides[state.currentSlideIndex];
   var crtScoreToDisplay = state.currentCoefficientNumber * currentSlideData.maxScore;
-  var changeText = "\xA3".concat(Math.abs(currentSlideData.change));
+  var changeText = '';
 
   if (currentSlideData.change < 0) {
-    changeText = "-".concat(changeText);
+    changeText = "Down \xA3".concat(Math.abs(currentSlideData.change), " from last month");
+  } else if (currentSlideData.change > 0) {
+    changeText = "Up \xA3".concat(currentSlideData.change, " from last month");
+  } else {
+    changeText = 'No change since last month';
   }
 
   return _react.default.createElement("div", {
@@ -107,12 +111,12 @@ var getDebtSlide = function getDebtSlide(props, state) {
     }
   }, "\xA3", Math.round(crtScoreToDisplay)), _react.default.createElement("p", {
     className: cn('small-text')
-  }, "Change since last check: ", _react.default.createElement("b", null, changeText)), _react.default.createElement("p", {
+  }, "Total credit limit ", currentSlideData.limit), _react.default.createElement("p", {
     className: cn('description-text'),
     style: {
       color: props.slides[state.currentSlideIndex].color
     }
-  }, "You're doing great!"));
+  }, changeText));
 };
 
 exports.getDebtSlide = getDebtSlide;

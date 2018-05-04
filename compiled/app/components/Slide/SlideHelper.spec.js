@@ -50,6 +50,18 @@ var props = {
     "maxScore": 49364,
     "color": "#FCD29F",
     "change": 327
+  }, {
+    "type": "debt",
+    "score": 24682,
+    "maxScore": 49364,
+    "color": "#FCD29F",
+    "change": 0
+  }, {
+    "type": "debt",
+    "score": 75,
+    "maxScore": 100,
+    "color": "#FCD29F",
+    "change": 0
   }]
 };
 describe('Slide helpers', function () {
@@ -82,6 +94,13 @@ describe('Slide helpers', function () {
   it('getDebtSlide renders correctly when change is positive', function () {
     var currentState = Object.assign({}, state, {
       currentSlideIndex: 4
+    });
+    var result = helperMethods.getDebtSlide(props, currentState);
+    expect(result).toMatchSnapshot();
+  });
+  it('getDebtSlide renders correctly when no change', function () {
+    var currentState = Object.assign({}, state, {
+      currentSlideIndex: 5
     });
     var result = helperMethods.getDebtSlide(props, currentState);
     expect(result).toMatchSnapshot();
