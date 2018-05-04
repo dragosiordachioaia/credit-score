@@ -29,11 +29,11 @@ The solution could benefit from more cross-browser compatibility (i.e. IE suppor
 
 -----------------
 
-###Supported browsers:
+### Supported browsers:
 
 Chrome, Firefox, Safari, Opera, Edge 
 
-###Supported platforms:
+### Supported platforms:
 
 Mac OS X, Windows 8, Windows 10, Android, iOS
 
