@@ -16,16 +16,16 @@ module.exports = {
   },
   output: {
     path: DIST,
-    filename: '[name]-[hash].js',
+    filename: '[name].js',
     publicPath: '/',
   },
   plugins: [
     new ProgressBarPlugin(),
-    new webpack.HashedModuleIdsPlugin(),
+    // new webpack.HashedModuleIdsPlugin(),
     new Visualizer({
       filename: '../webpack-stats.html',
     }),
-    new ExtractTextPlugin('[name]-[hash].css'),
+    new ExtractTextPlugin('[name].css'),
     new webpack.NoEmitOnErrorsPlugin(),
     new webpack.DefinePlugin({
       'process.env.PORT': JSON.stringify(process.env.PORT),
