@@ -2,7 +2,7 @@
 ![Demo gif](demo.gif)
 
 
-[Live demo] (http://ec16edd1.ngrok.io/) 
+[Live demo](http://ec16edd1.ngrok.io/) 
 (self-hosted website, so might also be offline and speed will probably be slow)
 
 ## Goal
