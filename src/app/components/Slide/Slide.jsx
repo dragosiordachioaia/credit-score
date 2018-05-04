@@ -92,6 +92,11 @@ export default class Slide extends Component {
   startAnimation() {
     this.killTweens();
 
+    // we reset this so it always grows from 0 to our value for the desired effect
+    // we do not neet to reset the 'stroke' one, because we want that one to
+    // animate from the current position to the next
+    this.valueTweenScore = 0;
+
     this.tweenScore = TweenMax.to(
       this,
       this.animationDuration,
@@ -99,7 +104,7 @@ export default class Slide extends Component {
         valueTweenScore: this.state.targetScore / this.state.maxScore,
         ease: EaseTypes.Strong.easeOut,
         // we use the update handle from this tween to update both values instead
-        // of doing it for both tweens in order to avoid re-rendering twice per cycle
+        // of doing it for both tweens in order to avoid re-rendering twice per animation cycle
         onUpdate: () => {
           this.setState({
             currentCoefficientNumber: this.valueTweenScore,

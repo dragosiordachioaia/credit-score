@@ -76,11 +76,15 @@ export const getBalanceSlide = (props, state) => {
 
 export const getDebtSlide = (props, state) => {
   const currentSlideData = props.slides[state.currentSlideIndex];
-  const crtScoreToDisplay = state.currentCoefficientNumber *currentSlideData.maxScore;
+  const crtScoreToDisplay = state.currentCoefficientNumber * currentSlideData.maxScore;
 
-  let changeText = `£${Math.abs(currentSlideData.change)}`;
+  let changeText = '';
   if(currentSlideData.change < 0) {
-    changeText = `-${changeText}`;
+    changeText = `Down £${Math.abs(currentSlideData.change)} from last month`;
+  } else if (currentSlideData.change > 0) {
+    changeText = `Up £${currentSlideData.change} from last month`;
+  } else {
+    changeText = 'No change since last month';
   }
 
   return (
@@ -98,13 +102,13 @@ export const getDebtSlide = (props, state) => {
         £{Math.round(crtScoreToDisplay)}
       </h2>
       <p className={cn('small-text')}>
-        Change since last check: <b>{changeText}</b>
+        Total credit limit {currentSlideData.limit}
       </p>
       <p
         className={cn('description-text')}
         style={{color: props.slides[state.currentSlideIndex].color}}
       >
-        You're doing great!
+        {changeText}
       </p>
     </div>
   )

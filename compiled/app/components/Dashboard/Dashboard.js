@@ -119,7 +119,7 @@ function (_Component) {
         color: '#FCD29F',
         change: scoreData.changeInLongTermDebt
       }];
-      var top;
+      var top; // we want the score slider to be positioned different, depending on screen size
 
       if (mobile) {
         top = 'calc(4vh)';
@@ -174,7 +174,7 @@ function (_Component) {
         size: "small",
         slides: slides,
         style: {
-          top: 'calc(90vh - 140px)',
+          top: 'calc(4vh + 300px + 30px)',
           left: 'calc(50vw - 85px)'
         }
       });

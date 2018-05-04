@@ -244,14 +244,14 @@ function (_Component) {
       }
 
       var radius = this.getRadius(this.props.size);
+      var strokeWidth = this.props.strokeWidth || 3;
+      var spaceToEdge = 4;
       var angle = this.state.currentCoefficientStroke * 360;
 
       if (angle % 360 === 0) {
         angle = 359.9;
       }
 
-      var strokeWidth = this.props.strokeWidth || 3;
-      var spaceToEdge = 4;
       return _react.default.createElement("div", {
         className: cn(null, "main-".concat(this.props.size)),
         style: this.props.style,

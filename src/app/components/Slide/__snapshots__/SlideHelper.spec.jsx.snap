@@ -51,10 +51,7 @@ exports[`Slide helpers getDebtSlide renders correctly when change is negative 1`
   <p
     className="slide__small-text"
   >
-    Change since last check: 
-    <b>
-      -£327
-    </b>
+    Total credit limit 
   </p>
   <p
     className="slide__description-text"
@@ -64,7 +61,7 @@ exports[`Slide helpers getDebtSlide renders correctly when change is negative 1`
       }
     }
   >
-    You're doing great!
+    Down £327 from last month
   </p>
 </div>
 `;
@@ -97,10 +94,7 @@ exports[`Slide helpers getDebtSlide renders correctly when change is positive 1`
   <p
     className="slide__small-text"
   >
-    Change since last check: 
-    <b>
-      £327
-    </b>
+    Total credit limit 
   </p>
   <p
     className="slide__description-text"
@@ -110,7 +104,50 @@ exports[`Slide helpers getDebtSlide renders correctly when change is positive 1`
       }
     }
   >
-    You're doing great!
+    Up £327 from last month
+  </p>
+</div>
+`;
+
+exports[`Slide helpers getDebtSlide renders correctly when no change 1`] = `
+<div
+  className="slide__individual-slide"
+  style={
+    Object {
+      "width": "300px",
+    }
+  }
+>
+  <p
+    className="slide__small-text"
+  >
+    Your long term debt is
+  </p>
+  <h2
+    className="slide__score-text"
+    style={
+      Object {
+        "color": "#FCD29F",
+      }
+    }
+  >
+    £
+    36247
+  </h2>
+  <p
+    className="slide__small-text"
+  >
+    Total credit limit 
+  </p>
+  <p
+    className="slide__description-text"
+    style={
+      Object {
+        "color": "#FCD29F",
+      }
+    }
+  >
+    No change since last month
   </p>
 </div>
 `;

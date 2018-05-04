@@ -53,6 +53,16 @@ export default class Dashboard extends Component {
 
   displayMainSlide({mobile}) {
     const scoreData = this.state.score.creditReportInfo;
+
+    let maxDebt;
+    let debtLimit = scoreData.currentLongTermCreditLimit;
+
+    if(!debtLimit) {
+      maxDebt = Number.MAX_SAFE_INTEGER;
+    } else {
+      maxDebt = debtLimit;
+    }
+
     const slides = [
       {
         type: 'score',
@@ -63,16 +73,17 @@ export default class Dashboard extends Component {
       {
         type: 'debt',
         score: scoreData.currentLongTermDebt,
-        maxScore: scoreData.currentLongTermDebt * 2,
+        maxScore: maxDebt,
         color: '#FCD29F',
+        limit: scoreData.currentLongTermCreditLimit || 0,
         change: scoreData.changeInLongTermDebt
       }
     ];
 
     let top;
-    // we want the score slider to be positioned different, depending on screen size
-    if(mobile) {
-      top = 'calc(4vh)';
+    // we want the score slider to be positioned differently, depending on screen size
+    if(mobile && window.innerHeight > 520) {
+      top = 'calc(50vh - 250px)';
     } else {
       top = 'calc(50vh - 150px)';
     }
@@ -91,12 +102,17 @@ export default class Dashboard extends Component {
   }
 
   displayOffersSlide() {
+    if(window.innerHeight < 520) {
+      return null;
+    }
+
     const slides = [{
       type: 'offers',
       score: 5,
       maxScore: 5,
       color: '#fff',
     }];
+
     return (
       <Slide
         animate={false}
@@ -108,6 +124,8 @@ export default class Dashboard extends Component {
         }}
       />
     );
+
+
   }
 
   displayBalanceSlide() {
@@ -127,7 +145,7 @@ export default class Dashboard extends Component {
         size='small'
         slides={slides}
         style={{
-          top: 'calc(90vh - 140px)',
+          top: 'calc(50vh + 80px)',
           left: 'calc(50vw - 85px)'
         }}
       />
@@ -160,7 +178,9 @@ export default class Dashboard extends Component {
     }
 
     let content;
-    if(window.innerWidth <= breakpoints.TABLET) {
+    if(
+      window.innerWidth <= breakpoints.TABLET
+    ) {
       content = this.displayMobileView();
     } else {
       content = this.displayNonMobileView();

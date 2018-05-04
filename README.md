@@ -1,7 +1,8 @@
 ## Credit Score Component
 ![Demo gif](demo.gif)
 
-[Live demo] (http://ec16edd1.ngrok.io/) (self-hosted website, so might also be offline and speed will probably be slow)
+[Live demo] (http://ec16edd1.ngrok.io/) 
+(self-hosted website, so might also be offline and speed will probably be slow)
 
 ## Goal
 Create a slider component that animates a circular path according to a predefined value, while also having a 'frosted glass' background.

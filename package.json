@@ -13,7 +13,7 @@
     "------ SERVER STEPS ------": "",
     "start": "node compiled/server-entry.js",
     "start:webpack": "ENV=dev webpack-dev-server --config webpack-dev-server.js",
-    "start:dev": "ENV=dev nodemon src/server-entry.js",
+    "start:dev": "ENV=dev PORT=3030 nodemon src/server-entry.js",
     "------ TESTING ------": "",
     "test": "jest --config jest.json .*.spec.jsx?",
     "------ UTILS ------": "",

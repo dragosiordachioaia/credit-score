@@ -21,6 +21,8 @@ const props = {
     {"type":"balance","score":24682,"maxScore":49364,"color":"#FCD29F"},
     {"type":"offers","score":24682,"maxScore":49364,"color":"#FCD29F"},
     {"type":"debt","score":24682,"maxScore":49364,"color":"#FCD29F","change":327},
+    {"type":"debt","score":24682,"maxScore":49364,"color":"#FCD29F","change":0},
+    {"type":"debt","score":75,"maxScore":100,"color":"#FCD29F","change":0},
   ],
 };
 
@@ -50,5 +52,9 @@ describe('Slide helpers', () => {
     const result = helperMethods.getDebtSlide(props, currentState);
     expect(result).toMatchSnapshot();
   });
-
+  it('getDebtSlide renders correctly when no change', () => {
+    let currentState = Object.assign({}, state, {currentSlideIndex: 5});
+    const result = helperMethods.getDebtSlide(props, currentState);
+    expect(result).toMatchSnapshot();
+  });
 });
